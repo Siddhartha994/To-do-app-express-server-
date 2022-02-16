@@ -1,0 +1,36 @@
+body{
+    display: flex;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+#leftDiv {
+    flex: 1;
+    height: 100%;
+    background: wheat;
+}
+#rightDiv {
+    flex: 1;
+    height: 100%;
+    background:darkgray;
+}
+.textbox{
+    flex: 1;
+    height: 50%;
+    width: 100%;
+}
+.unitbox{
+        display: flex;  
+        background: orange;
+        justify-content: space-between;
+        margin: 10px;
+}
+.close {
+    cursor: pointer;
+    position: absolute;
+    color: green;
+    top: 50%;
+    right: 0%;
+    padding: 12px 16px;
+    transform: translate(0%, -50%);
+}
