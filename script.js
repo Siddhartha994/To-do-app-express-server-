@@ -1,10 +1,8 @@
 init();
 const ipbox = document.getElementById('inputbox');
 const leftDiv = document.querySelector('#main'); 
-
 // console.log(leftDiv);
 var todo = [];
-
 function init(){
     var leftPaneDiv = document.createElement('div');
     var rightPaneDiv = document.createElement('div');
@@ -59,9 +57,25 @@ leftDiv.addEventListener('click',(event)=>{
         toggleCheckbox(key);
     }
     if(event.target.className == 'close')
-        removeContainer(key);   
+        removeContainer(key);
+    if(event.target.className == 'pencil')
+        editName(key);
 })
-
+function editName(key){
+    var text;
+    var person = prompt("Edit to-do", "");
+    if (person == null || person == "")
+        text = "";
+    else 
+        text = person;
+    todo.forEach(data=>{
+        if(data.id == key){
+            if(text !== "")
+            data.name = text;
+        }
+    })
+    addtolocalstorage(todo);
+}
 function addtoArray(value){
     const container = {
         id: new Date().getUTCMilliseconds(),
@@ -79,16 +93,20 @@ function renderBoxes(todo){
         var taskname = document.createElement('p');
         var check = document.createElement('input');
         var button = document.createElement('button');
+        var edit = document.createElement('button');
+
 
         box.appendChild(taskname);
         box.appendChild(check);
         box.appendChild(button);
+        box.appendChild(edit);
 
         // attributes 
         box.setAttribute('class','unitbox');
         check.setAttribute('type','checkbox');
         check.setAttribute('class','check');
         button.setAttribute('class', 'close');
+        edit.setAttribute('class','pencil');
         button.innerHTML = 'X';
         if(data.check){
             taskname.setAttribute('class', 'checked')
