@@ -90,7 +90,10 @@ function renderBoxes(todo){
         check.setAttribute('class','check');
         button.setAttribute('class', 'close');
         button.innerHTML = 'X';
-        data.check ? taskname.setAttribute('class', 'checked'):taskname.setAttribute('class', 'unchecked');
+        if(data.check){
+            taskname.setAttribute('class', 'checked')
+            check.setAttribute('checked', 'checked');
+        }
         //key for container 
         box.setAttribute('key', data.id);
     taskname.innerHTML = data.name;   

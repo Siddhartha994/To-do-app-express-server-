@@ -28,3 +28,6 @@ body{
 .checked {
     text-decoration: line-through;
 }
+.check{
+    text-decoration: off;
+}
