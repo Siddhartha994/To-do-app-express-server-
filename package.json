@@ -1,0 +1,23 @@
+{
+  "name": "todoserver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "rough.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Siddhartha994/To-do-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Siddhartha994/To-do-app/issues"
+  },
+  "homepage": "https://github.com/Siddhartha994/To-do-app#readme",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "express": "*"
+  }
+}
