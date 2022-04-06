@@ -22,6 +22,13 @@ app.get("/script.js",(req,res)=>{
         res.end(data)
     })
 })
+app.get('/todo',(req,res)=>{
+    fs.readFile("./db.txt","utf-8",(err,data)=>{
+        var todo = data.length ? JSON.parse(data) : []
+        // console.log(todo);
+        res.json(todo);
+    })
+})
 app.post("/save",(req,res)=>{
     fs.readFile("./db.txt","utf-8",(err,data)=>{
         var todo = [];
@@ -54,14 +61,24 @@ app.post("/edit",(req,res)=>{
                 res.end();
         })
     })
-
 })
-app.get('/todo',(req,res)=>{
+app.post("/remove",(req,res)=>{
     fs.readFile("./db.txt","utf-8",(err,data)=>{
-        var todo = data.length ? JSON.parse(data) : []
-        // console.log(todo);
-        res.json(todo);
+        var todo = []
+        todo = JSON.parse(data)
+        console.log(todo)
+        todo.forEach((val,index) => {
+            if(val.todo.id == req.body.todo)
+                todo.splice(index,1)
+        });
+        fs.writeFile('./db.txt',JSON.stringify(todo),(err)=>{
+            if(err)
+                res.end('error');
+            else    
+                res.end();
+        })
     })
+
 })
 
 app.listen(3000,()=>{

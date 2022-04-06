@@ -73,9 +73,12 @@ function addtoArray(value){
 }
 function removeContainer(key){
     var req = new XMLHttpRequest();
-    req.open("put","/edit");
+    req.open("post","/remove");
     req.setRequestHeader("Content-type","application/json")
-    req.send(JSON.stringify({todo: todo}));
+    req.send(JSON.stringify({todo: key}));
+    req.addEventListener("load",()=>{
+        getFromLocalStorage();
+    })
 }
 function toggleCheckbox(id){
     var req = new XMLHttpRequest();
