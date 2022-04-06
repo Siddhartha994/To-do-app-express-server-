@@ -1,26 +1,52 @@
 const express = require('express');
 var fs = require('fs');
 
+const path = require('path')
 const app = express();
+
 const bodyParser = require('body-parser');
-const res = require('express/lib/response');
 
 app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname,'client')));
 
-app.get('/',(req,res,next)=>{
-    fs.readFile("./client/index.html","utf-8",(err,data)=>{
-        res.end(data)
+app.get('/home',(req,res,next)=>{
+    fs.readFile('./client/home.html',"utf-8",(err,data)=>{
+        res.send(data)
     })
 })
-app.get('/styles.css',(req,res)=>{
-    fs.readFile("./client/styles.css","utf-8",(err,data)=>{
-        res.end(data)
+app.post('/signup',(req,res,next)=>{
+    var flag = true
+    fs.readFile("./user.txt","utf-8",(err,data)=>{
+        var username = req.body.user.uname
+        var todo = data.length ? JSON.parse(data): []
+        if(todo.length)
+            todo.forEach((user,index,arr)=>{
+                if(user.uname == username)
+                    {
+                        flag = false
+                        res.statusCode = 403;
+                        res.end();
+                    }
+            })
+        
+        if(flag){
+            todo.push(req.body.user)
+            fs.writeFile('./user.txt',JSON.stringify(todo),(err)=>{
+            if(err)
+                res.send("error!!");
+            else{
+                res.statusCode = 200;
+	            res.setHeader('Content-Type', 'application/json');
+	            res.json({status: 'Registration Successful!', user: req.body.user.uname});
+            }
+            })
+        }
+
     })
 })
-app.get("/script.js",(req,res)=>{
-    fs.readFile("./client/script.js","utf-8",(err,data)=>{
-        res.end(data)
-    })
+
+app.use('/user',(req,res,next)=>{
+
 })
 app.get('/todo',(req,res)=>{
     fs.readFile("./db.txt","utf-8",(err,data)=>{
