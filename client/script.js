@@ -1,7 +1,27 @@
-// init();
+init();
 const ipbox = document.getElementById('inputbox');
 const leftDiv = document.querySelector('#main'); 
+var uname = document.getElementById('name');
+const logout = document.getElementById('logout');
 
+var UserName
+function init(){
+    var req = new XMLHttpRequest();
+    req.open("get","/name");
+    req.send();
+    req.addEventListener("load",()=>{
+        UserName  = JSON.parse(req.responseText);
+        uname.innerHTML += UserName.name
+    })
+}
+logout.onclick = ()=>{
+    var req = new XMLHttpRequest();
+    req.open("get","/logout");
+    req.send();
+    req.addEventListener("load",()=>{
+        window.location.href = "/"
+    })
+}
 //add to array if 'enter'
 ipbox.addEventListener('keyup',function(event){
     
@@ -17,7 +37,6 @@ ipbox.addEventListener('keyup',function(event){
         ipbox.value = '';
     }
 });
-
 function renderBoxes(todo){
     leftDiv.innerHTML = '';
         todo.forEach(function(data){
@@ -62,12 +81,12 @@ leftDiv.addEventListener('click',(event)=>{
     if(event.target.className == 'pencil')
         editName(key);
 })
-
 function addtoArray(value){
     const container = {
         id: new Date().getUTCMilliseconds(),
         name: value,
-        check: false
+        check: false,
+        user: 'acas'
     };
     addtolocalstorage(container);
 }

@@ -18,8 +18,16 @@ signup.addEventListener('click',()=>{
     req.setRequestHeader("Content-type","application/json")
     req.send(JSON.stringify({user: user}));
     req.addEventListener("load",()=>{
-        if(req.status == 200)
-        console.log("signed in"+ req.response)
+        if(req.status == 200){
+            console.log("signed in"+ req.response)
+            alert("Successfully Signed in !")
+        }
+        else if(req.status == 403){
+            alert("User already exists")
+        }
+        else{
+            alert("SignUp failed!")
+        }
     })
 })
 login.addEventListener('click',()=>{
@@ -32,7 +40,11 @@ login.addEventListener('click',()=>{
     req.setRequestHeader("Content-type","application/json")
     req.send(JSON.stringify({user: user}));
     req.addEventListener("load",()=>{
-        if(req.status == 200)
-            console.log("Welcome "+req.response.user)
+        if(req.status == 200){
+            console.log("Welcome" +req.responseText)
+            window.location.href = "/home"
+        }
+        else
+            console.log("try logging again")
     })
 })
