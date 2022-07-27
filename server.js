@@ -48,7 +48,6 @@ app.post('/signup',(req,res,next)=>{
             }
             })
         }
-
     })
 })
 app.post('/login',(req,res,next)=>{
@@ -76,6 +75,7 @@ app.post('/login',(req,res,next)=>{
         }
     })
 })
+
 app.use(express.static(path.join(__dirname,'client')));
 
 
@@ -155,9 +155,6 @@ app.post("/remove",(req,res)=>{
                 res.end();
         })
     })
-})
-app.get("/logout",(req,res)=>{
-    res.redirect('/')
 })
 
 app.listen(3000,()=>{
